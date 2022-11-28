@@ -1,19 +1,24 @@
-# Assignment 5 - Building a  Hybrid Web App with Vue.js and Quasar.js
+# Quitter (quitter)
 
-[Assignment](https://unomail-my.sharepoint.com/:w:/g/personal/spawaskar_unomaha_edu/EfpMr9UEUPhOoKjtzhEdg1QB5AKAGwRC4s61p6_7JZVOOA?e=waicuk)
+I left the default but you can change it to anything.
 
-[Tutorial 1](https://unomail-my.sharepoint.com/:w:/g/personal/spawaskar_unomaha_edu/Ef55itl1_SpCtOz_d6tDukQBMzuOR2poanIwVYgyayeadw?e=opF8CB)
+## Install the dependencies
+```bash
+yarn
+# or
+npm install
+```
 
-[Tutorial 2](https://unomail-my.sharepoint.com/:w:/g/personal/spawaskar_unomaha_edu/EU9xXEmu93lNki33N-vlIIIBCJPDkZJeHDRrstJUJpwQNg?e=5Hdepd)
+### Start the app in development mode (hot-code reloading, error reporting, etc.)
+```bash
+quasar dev
+```
 
-**Do only one of the following tutorials for full Credit**
 
-[Tutorial - Mac Electron](https://unomail-my.sharepoint.com/:w:/g/personal/spawaskar_unomaha_edu/EeBkUqwqUOVBgIG1kpETIDEBhPik52RPuDj0vBVqt3oqbA?e=tTWfHc)
+### Build the app for production
+```bash
+quasar build
+```
 
-[Tutorial - Windows Electron](https://unomail-my.sharepoint.com/:w:/g/personal/spawaskar_unomaha_edu/EessQOV643pLvDfdARf4migBGNkWPrfdN4F8GLYH5nIsAA?e=OFlCki)
-
-[Tutorial - Android Hybrid App](https://unomail-my.sharepoint.com/:w:/g/personal/spawaskar_unomaha_edu/EdCrlrLmWbtBhUGzyy9B5cgBgxsnuJajPH7h3fOlQxyI9w?e=c2RtRZ)
-
-Tutorial - IOS Hybrid App
-
-[Tutorial - Progressive Web App](https://unomail-my.sharepoint.com/:w:/g/personal/spawaskar_unomaha_edu/ESVktrOAB19JjB9Ky4Mdr4IBiRd7wfgYBSmd63bEq8718w?e=IELsan)
+### Customize the configuration
+See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js).
