@@ -98,6 +98,9 @@
 </template>
 
 <script>
+import db from 'src/boot/firebase'
+import { formatDistance } from 'date-fns'
+
 export default {
   name: 'PageHome',
   data() {
@@ -120,13 +123,65 @@ export default {
     addNewQweet() {
       let newQweet = {
         content: this.newQweetContent,
-        date: Date.now()
+        date: Date.now(),
+        liked: false
       }
-      this.qweets.unshift(newQweet)
+      //this.qweets.unshift(newQweet)
+      db.collection('qweets').add(newQweet).then((docRef) => {
+        console.log('Document written with ID: ', docRef.id)
+      }).catch((error) => {
+        console.error('Error adding document: ', error)
+      })
       this.newQweetContent = ''
+    },
+    deleteQweet(qweet){
+      db.collection('qweets').doc(qweet.id).delete().then(function() {
+        console.log('Document successfully deleted!')
+      }).catch((error) => {
+        console.error('Error removing document: ', error)
+      })
+    },
+    toggleLiked(qweet) {
+      db.collection('qweets').doc(qweet.id).update({
+        liked: !qweet.liked
+      })
+      .then(function() {
+        console.log('Document successfully update!')
+      })
+      .catch(function(error) {
+        console.error('Error updating document: ', error)
+      })
     }
+  },
+  filters: {
+    relativeDate(value){
+      return formatDistance(value, new Date())
+    }
+  },
+
+  mounted() {
+    db.collection('qweets').orderBy('date').onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+        let qweetChange = change.doc.data()
+        qweetChange.id = change.doc.id
+        if (change.type === 'added') {
+          console.log('New qweet: ', qweetChange)
+          this.qweets.unshift(qweetChange)
+        }
+        if (change.type === 'modified') {
+          console.log('Modified qweet: ', qweetChange)
+          let index = this.qweets.findIndex(qweet => qweet.id === qweetChange.id)
+          Object.assign(this.qweets[index], qweetChange)
+        }
+        if (change.type === 'removed') {
+          console.log('Removed qweet: ', qweetChange)
+          let index = this.qweets.findIndex(qweet => qweet.id === qweetChange.id)
+          this.qweets.splice(index, 1)
+        }
+      })
+    })
   }
-} 
+}
 </script>
 
 <style lang ="sass">
@@ -142,5 +197,11 @@ export default {
 
 .qweet-content
   white-space: pre-line
+
+.qweet-icons
+  margin-left: -5px
+
+.qweet:not(:first-child)
+  border-top: 1px solid rgba(0, 0 , 0, 0.12)
 
 </style>
